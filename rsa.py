@@ -49,9 +49,44 @@ def rsa_gen_primes(nlen: int, e: int) -> tuple[int, int]:
         
     return (p, q)
 
+def rsa_encrypt(m: int, e: int, n: int) -> int:
+    """
+    Encrypt plaintext integer using RSA.
+
+    Input: 
+        m -- Plaintext
+        e -- Public exponent 
+        n -- Modulus 
+
+    Output:
+        cipher -- The encrypted plaintext
+    """
+    return pow(m, e, n)
+
+def rsa_decrypt(c: int, d: int, n: int) -> int:
+    """
+    Decrypt plaintext integer using RSA.
+
+    Input: 
+        c -- Ciphertext
+        d -- Private exponent 
+        n -- Modulus 
+
+    Output:
+        m -- The ciphertext decrypted
+    """
+    return pow(c, d, n)
+
 if __name__ == "__main__":
-    e = 65537
+    e     = 65537
+    p, q  = rsa_gen_primes(2048, e)
+    n     = p * q
+    phi_n = (p - 1)*(q - 1) 
+    d     = pow(e, -1, phi_n)
 
-    (p,q) = rsa_gen_primes(2048, e)
-
-
+    m     = int.from_bytes("hello".encode())
+    print("Encrypting \'", m, "\' ...")
+    c = rsa_encrypt(m, e, n)
+    print("Decrypting \'", c, "\' ...")
+    dec = rsa_decrypt(c, d, n)
+    print("Message is \'", dec, "\'!")

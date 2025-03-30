@@ -9,6 +9,8 @@ def DRBG_get_bits(n: int) -> int:
     Deterministic random bit generator
     !!! Not implemented
 
+    https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf
+
     Input:
         n -- number of bits to generate
     """
@@ -17,7 +19,7 @@ def DRBG_get_bits(n: int) -> int:
 
 def gcd(a: int, b: int) -> int:
     """
-    Greatest commom divisor of and b.
+    Finds the greatest commom divisor of a and b.
     """
     if a < b:
         tmp = a
